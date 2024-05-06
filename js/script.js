@@ -200,31 +200,21 @@ badenButton.addEventListener('click', async function (e) {
     getWeather(47.28, 8.18, badenButton.alt);
 })
 
-
-var snowContainer = document.getElementById("snowContainer");
-var hoverText = document.getElementById("hoverText");
-
-hoverText.addEventListener("mouseenter", function() {
-    snowContainer.classList.remove("hidden"); // Schneeflocken sichtbar machen
-    createSnowflakes(); // Schneeflocken erstellen
-});
-
-hoverText.addEventListener("mouseleave", function() {
-    snowContainer.classList.add("hidden"); // Schneeflocken verstecken
-    removeAllSnowflakes(); // Schneeflocken entfernen
-});
+document.getElementById('hoverText').addEventListener('mouseenter', createSnowflakes);
 
 function createSnowflakes() {
-    for (var i = 0; i < 50; i++) {
-        var snowflake = document.createElement("div");
-        snowflake.className = "snowflake";
-        snowflake.style.left = Math.random() * window.innerWidth + "px"; // Zufällige X-Position
-        snowContainer.appendChild(snowflake);
-    }
-}
+    console.log('Creating snowflakes...'); // Add this line
+    for (let i = 0; i < 100; i++) {
+        let snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.style.left = Math.random() * window.innerWidth + 'px';
+        snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+        snowflake.style.opacity = Math.random();
+        document.body.appendChild(snowflake);
 
-function removeAllSnowflakes() {
-    while (snowContainer.firstChild) {
-        snowContainer.removeChild(snowContainer.firstChild);
+        // Remove the snowflake after it finishes falling
+        setTimeout(() => {
+            document.body.removeChild(snowflake);
+        }, (Math.random() * 3 + 2) * 1000);
     }
 }

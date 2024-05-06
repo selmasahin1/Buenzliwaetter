@@ -132,10 +132,10 @@ h3 {
     margin-right: 120px;
 }
 
-#currentWeather {
+.lowerContainer {
     display: flex;
     gap: 8vw;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .smallImg {
@@ -145,6 +145,13 @@ h3 {
 
 .temp, .rain, .wind {
     font-size: 1.7rem;
+}
+
+.title {
+    font-size: var(--font-size-h1);
+    text-align: center;
+    margin-bottom: 60px;
+
 }
 
 .thermometer {
@@ -169,6 +176,44 @@ h3 {
     text-align: center;
     align-content: center;
 }
+
+#hoverText {
+    position: relative;
+}
+
+#snowContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Damit die Schneeflocken den Hover-Effekt nicht stören */
+}
+
+@keyframes snowfall {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(100vh); /* Die Schneeflocken fallen bis zum unteren Rand des Bildschirms */
+    }
+}
+
+.snowflake {
+    position: absolute;
+    width: 30px; /* Breite der Schneeflocken anpassen */
+    height: 30px; /* Höhe der Schneeflocken anpassen */
+    background-image: url('/images/Feuer.PNG'); /* Pfad zum Schneeflockenbild */
+    background-size: cover;
+    animation: snowfall linear infinite; /* Animation für den Schneefall */
+}
+
+
+
+.hidden {
+    display: none; /* Standardmäßig unsichtbar */
+}
+
 
 @media(min-width: 600px) {
     html {

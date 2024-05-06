@@ -70,10 +70,18 @@ function createWeeklyTemperatureContainers(averages) {
     });
 }
 
-async function createTodaysWeatherContainer(weather) {
+async function createTodaysWeatherContainer(weather, cityName) {
     while (currentWeather.firstChild) {
         currentWeather.removeChild(currentWeather.firstChild);
-    }
+    } 
+    let title = document.createElement('div');
+    title.classList.add('title');
+    title.innerText = cityName;
+    currentWeather.appendChild(title);
+
+    let container = document.createElement('div');
+    container.classList.add('lowerContainer');
+
     let currentWeatherRight = document.createElement('div');
     currentWeatherRight.classList.add('currentWeatherRight');
 
@@ -113,8 +121,9 @@ async function createTodaysWeatherContainer(weather) {
     wind.innerText = weather.current.wind_speed_10m + "km/h";
     currentWeatherLeft.appendChild(wind);
 
-    currentWeather.appendChild(currentWeatherLeft);
-    currentWeather.appendChild(currentWeatherRight);
+    container.appendChild(currentWeatherLeft);
+    container.appendChild(currentWeatherRight);
+    currentWeather.appendChild(container);
 
     await fillThermometer(fill, weather.current.temperature_2m);
 
@@ -144,50 +153,78 @@ async function loadWeather(long, lat) {
     }
 }
 
-async function getWeather(latitude, longitude) {
+async function getWeather(latitude, longitude, cityName) {
     const weather = await loadWeather(longitude, latitude);
     let averages = getAverageDayTemperature(weather.hourly.temperature_2m, weather.current.time);
     createWeeklyTemperatureContainers(averages);
-    await createTodaysWeatherContainer(weather);
+    await createTodaysWeatherContainer(weather, cityName);
 }
 
 luzernButton.addEventListener('click', async function (e) {
     e.preventDefault();
-    getWeather(47.05, 8.31);
+    getWeather(47.05, 8.31, luzernButton.alt);
 })
 
 zurichButton.addEventListener('click', async function (e) {
     e.preventDefault();
-    getWeather(47.36, 8.55);
+    getWeather(47.36, 8.55, zurichButton.alt);
 })
 
 bernButton.addEventListener('click', async function (e) {
     e.preventDefault();
-    getWeather(46.79, 7.70);
+    getWeather(46.79, 7.70, bernButton.alt);
 })
 
 schaffhausenButton.addEventListener('click', async function (e) {
     e.preventDefault();
-    getWeather(47.42, 8.38);
+    getWeather(47.42, 8.38, schaffhausenButton.alt);
 })
 
 altdorfButton.addEventListener('click', async function (e) {
     e.preventDefault();
-    getWeather(46.88, 8.64);
+    getWeather(46.88, 8.64, altdorfButton.alt);
 })
 
 zermattButton.addEventListener('click', async function (e) {
     e.preventDefault();
-    getWeather(46.01, 7.45);
+    getWeather(46.01, 7.45, zermattButton.alt);
 })
 
 churButton.addEventListener('click', async function (e) {
     e.preventDefault();
-    getWeather(46.84, 9.53);
+    getWeather(46.84, 9.53, churButton.alt);
 })
 
 badenButton.addEventListener('click', async function (e) {
     e.preventDefault();
-    getWeather(47.28, 8.18);
+    getWeather(47.28, 8.18, badenButton.alt);
 })
 
+
+var snowContainer = document.getElementById("snowContainer");
+var hoverText = document.getElementById("hoverText");
+
+hoverText.addEventListener("mouseenter", function() {
+    snowContainer.classList.remove("hidden"); // Schneeflocken sichtbar machen
+    createSnowflakes(); // Schneeflocken erstellen
+});
+
+hoverText.addEventListener("mouseleave", function() {
+    snowContainer.classList.add("hidden"); // Schneeflocken verstecken
+    removeAllSnowflakes(); // Schneeflocken entfernen
+});
+
+function createSnowflakes() {
+    for (var i = 0; i < 50; i++) {
+        var snowflake = document.createElement("div");
+        snowflake.className = "snowflake";
+        snowflake.style.left = Math.random() * window.innerWidth + "px"; // Zufällige X-Position
+        snowContainer.appendChild(snowflake);
+    }
+}
+
+function removeAllSnowflakes() {
+    while (snowContainer.firstChild) {
+        snowContainer.removeChild(snowContainer.firstChild);
+    }
+}

@@ -203,7 +203,6 @@ badenButton.addEventListener('click', async function (e) {
 document.getElementById('hoverText').addEventListener('mouseenter', createSnowflakes);
 
 function createSnowflakes() {
-    console.log('Creating snowflakes...'); // Add this line
     for (let i = 0; i < 100; i++) {
         let snowflake = document.createElement('div');
         snowflake.className = 'snowflake';

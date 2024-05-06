@@ -18,7 +18,7 @@
         <h1 id="hoverText">bünzliwätter.</h1>
     </header>
     <main>
-        <div class="leftRow">
+        <div class="leftRow" style="grid-area: leftRow;">
             <h3>Luzern</h3>
             <img src="/images/cities/Luzern.PNG" alt="Luzern" class="image" id="luzern">
             <h3>Bern</h3>
@@ -28,11 +28,7 @@
             <h3>Altdorf</h3>
             <img src="/images/cities/Altdorf.PNG" alt="Altdorf" class="image" id="altdorf">
         </div>
-        <div class="weatherDisplay">
-            <div id="currentWeather"></div>
-            <div class="container" id="weatherCards"></div>
-        </div>
-        <div class="rightRow">
+        <div class="rightRow" style="grid-area: rightRow;">
             <h3>Zermatt</h3>
             <img src="/images/cities/Zermatt.PNG" alt="Zermatt" class="image" id="zermatt">
             <h3>Zürich</h3>
@@ -41,6 +37,10 @@
             <img src="/images/cities/Chur.PNG" alt="Chur" class="image" id="chur">
             <h3>Baden</h3>
             <img src="/images/cities/Baden.PNG" alt="Baden" class="image" id="baden">
+        </div>
+        <div class="weatherDisplay" style="grid-area: weatherDisplay;">
+            <div id="currentWeather"></div>
+            <div class="container" id="weatherCards"></div>
         </div>
     </main>
     <footer>

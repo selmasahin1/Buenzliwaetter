@@ -70,25 +70,67 @@ function createWeeklyTemperatureContainers(averages) {
     });
 }
 
-function createTodaysWeatherContainer(weather) {
+async function createTodaysWeatherContainer(weather) {
     while (currentWeather.firstChild) {
         currentWeather.removeChild(currentWeather.firstChild);
     }
-    let temp = document.createElement('div');
-    temp.classList.add('temperature');
-    temp.innerText = weather.current.temperature_2m + "°C ";
-    currentWeather.appendChild(temp);
+    let currentWeatherRight = document.createElement('div');
+    currentWeatherRight.classList.add('currentWeatherRight');
 
+    let temp = document.createElement('div');
+    temp.classList.add('temp');
+    temp.innerText = weather.current.temperature_2m + "°C ";
+    currentWeatherRight.appendChild(temp);
+
+    var thermometer = document.createElement('div');
+    thermometer.classList.add('thermometer');
+    var fill = document.createElement('div');
+    fill.classList.add('fill');
+    fill.style.height = '0';
+    thermometer.appendChild(fill);
+    currentWeatherRight.appendChild(thermometer);
+
+    let currentWeatherLeft = document.createElement('div');
+    currentWeatherLeft.classList.add('currentWeatherLeft');
+
+    let rainImg = document.createElement('img');
+    rainImg.classList.add('smallImg');
+    rainImg.src = '/images/Regen.png';
+    currentWeatherLeft.appendChild(rainImg);
 
     let rain = document.createElement('div');
     rain.classList.add('rain');
     rain.innerText = weather.current.precipitation_probability + "%";
-    currentWeather.appendChild(rain);
+    currentWeatherLeft.appendChild(rain);
+
+    let windImg = document.createElement('img');
+    windImg.classList.add('smallImg');
+    windImg.src = '/images/Wind.png';
+    currentWeatherLeft.appendChild(windImg);
 
     let wind = document.createElement('div');
     wind.classList.add('wind');
     wind.innerText = weather.current.wind_speed_10m + "km/h";
-    currentWeather.appendChild(wind);
+    currentWeatherLeft.appendChild(wind);
+
+    currentWeather.appendChild(currentWeatherLeft);
+    currentWeather.appendChild(currentWeatherRight);
+
+    await fillThermometer(fill, weather.current.temperature_2m);
+
+}
+
+function fillThermometer(fill, temperature) {
+    return new Promise(resolve => {
+        var interval = setInterval(function () {
+            if (fill.offsetHeight >= (temperature / 40) * fill.parentElement.offsetHeight) {
+                clearInterval(interval);
+                resolve();
+            } else {
+                fill.style.height = fill.offsetHeight + 8 + 'px';
+            }
+        }, 5); // Intervallzeit: 50 Millisekunden (langsamer)
+    });
 }
 
 async function loadWeather(long, lat) {
@@ -106,7 +148,7 @@ async function getWeather(latitude, longitude) {
     const weather = await loadWeather(longitude, latitude);
     let averages = getAverageDayTemperature(weather.hourly.temperature_2m, weather.current.time);
     createWeeklyTemperatureContainers(averages);
-    createTodaysWeatherContainer(weather);
+    await createTodaysWeatherContainer(weather);
 }
 
 luzernButton.addEventListener('click', async function (e) {

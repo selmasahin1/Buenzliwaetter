@@ -132,6 +132,44 @@ h3 {
     margin-right: 120px;
 }
 
+#currentWeather {
+    display: flex;
+    gap: 8vw;
+    margin-bottom: 20px;
+}
+
+.smallImg {
+    width: 90px;
+    height: 90px;
+}
+
+.temp, .rain, .wind {
+    font-size: 1.7rem;
+}
+
+.thermometer {
+    width: 20px;
+    height: 180px;
+    border: 4px solid var(--main-color);
+    border-radius: 15px;
+    position: relative;
+    margin: 20px;
+}
+
+.fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-radius: 15px;
+    background-color: #A186A1;
+    transition: height 0.5s ease;
+}
+
+.currentWeatherLeft, .currentWeatherRight {
+    text-align: center;
+    align-content: center;
+}
+
 @media(min-width: 600px) {
     html {
         font-size: 18px;

@@ -132,13 +132,22 @@ async function createTodaysWeatherContainer(weather, cityName) {
 function fillThermometer(fill, temperature) {
     return new Promise(resolve => {
         var interval = setInterval(function () {
-            if (fill.offsetHeight >= (temperature / 40) * fill.parentElement.offsetHeight) {
+            var fillHeight;
+            if (temperature < 0) {
+                // Calculate fill height for temperatures below 0°C
+                fillHeight = (-temperature / 40) * (fill.parentElement.offsetHeight / 4);
+            } else {
+                // Calculate fill height for temperatures above 0°C
+                fillHeight = (fill.parentElement.offsetHeight / 4) + ((temperature / 40) * (fill.parentElement.offsetHeight * 2 / 3));
+            }
+
+            if (fill.offsetHeight >= fillHeight) {
                 clearInterval(interval);
                 resolve();
             } else {
-                fill.style.height = fill.offsetHeight + 8 + 'px';
+                fill.style.height = fill.offsetHeight + 16 + 'px';
             }
-        }, 5); // Intervallzeit: 50 Millisekunden (langsamer)
+        }, 5);
     });
 }
 

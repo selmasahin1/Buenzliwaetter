@@ -1,5 +1,11 @@
 const zurichButton = document.querySelector('#zurich');
 const luzernButton = document.querySelector('#luzern');
+const bernButton = document.querySelector('#bern');
+const schaffhausenButton = document.querySelector('#schaffhausen');
+const altdorfButton = document.querySelector('#altdorf');
+const zermattButton = document.querySelector('#zermatt');
+const churButton = document.querySelector('#chur');
+const badenButton = document.querySelector('#baden');
 
 const currentWeather = document.querySelector('#currentWeather');
 
@@ -112,3 +118,34 @@ zurichButton.addEventListener('click', async function (e) {
     e.preventDefault();
     getWeather(47.36, 8.55);
 })
+
+bernButton.addEventListener('click', async function (e) {
+    e.preventDefault();
+    getWeather(46.79, 7.70);
+})
+
+schaffhausenButton.addEventListener('click', async function (e) {
+    e.preventDefault();
+    getWeather(47.42, 8.38);
+})
+
+altdorfButton.addEventListener('click', async function (e) {
+    e.preventDefault();
+    getWeather(46.88, 8.64);
+})
+
+zermattButton.addEventListener('click', async function (e) {
+    e.preventDefault();
+    getWeather(46.01, 7.45);
+})
+
+churButton.addEventListener('click', async function (e) {
+    e.preventDefault();
+    getWeather(46.84, 9.53);
+})
+
+badenButton.addEventListener('click', async function (e) {
+    e.preventDefault();
+    getWeather(47.28, 8.18);
+})
+

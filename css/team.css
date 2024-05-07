@@ -1,0 +1,63 @@
+:root {
+    --font-size-h1: 2.5rem;
+    --font-size-h2: 2rem;
+    --font-size-h3: 1.9rem;
+    --font-size-h3: 1rem;
+    --main-color: #54616F;
+    --background-color: #EBE3D4;
+}
+
+header {
+    font-family: "Jacques Francois Shadow", serif;
+    font-weight: 400;
+    color: var(--main-color);
+    border-bottom: 6px solid var(--main-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+body {
+    font-family: "Avenir Next", sans-serif;
+    color: var(--main-color);
+    background-color: var(--background-color);
+    height: 100vh;
+    margin: 0;
+}
+
+main {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+footer {
+    height: 80px;
+    background-color: var(--main-color);
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+a {
+    color: var(--background-color);
+    text-decoration: none;
+}
+
+a:visited {
+    color: var(--background-color);
+}
+
+img {
+    width: 200px;
+    height: auto;
+}
+
+.person {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}

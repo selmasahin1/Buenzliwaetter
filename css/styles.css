@@ -40,6 +40,18 @@ main {
 footer {
     height: 80px;
     background-color: var(--main-color);
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+a {
+    color: var(--background-color);
+    text-decoration: none;
+}
+
+a:visited {
+    color: var(--background-color);
 }
 
 h1 {
@@ -49,6 +61,7 @@ h1 {
 
 h2 {
     font-size: var(--font-size-h2);
+    margin: 0;
 }
 
 h3 {
@@ -66,11 +79,11 @@ h3 {
     height: 200px;
 }
 
-.image:hover {
+.image:hover, h2:hover {
     transform: scale(1.1);
 }
 
-.image:active {
+.image:active, h2:active {
     transform: scale(0.9);
 }
 

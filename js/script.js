@@ -9,6 +9,7 @@ const badenButton = document.querySelector('#baden');
 
 const currentWeather = document.querySelector('#currentWeather');
 
+// Durchschnittstemperatur pro Tag ausrechenen für die nächsten 6 Tage
 function getAverageDayTemperature(temperaturePerHour, date) {
     const dayTemps = Array.from({ length: 6 }, () => temperaturePerHour.splice(0, 24));
     return dayTemps.map((temps, i) => {
@@ -24,14 +25,13 @@ function getAverageDayTemperature(temperaturePerHour, date) {
 
 function createWeeklyTemperatureContainers(averages) {
     const weatherCards = document.getElementById('weatherCards');
+    //Falls bereits Wochentemperaturkarten vorhanden, löschen
     while (weatherCards.firstChild) {
         weatherCards.removeChild(weatherCards.firstChild);
     }
 
     averages.forEach(ave => {
-        // Create wrapper for each pair of cards
-        const wrapper = document.createElement('div');
-        wrapper.classList.add('card-wrapper');
+        const wrapper = createElement('div', 'card-wrapper');
 
         // div für das Datum wird erstellt
         const dateCard = document.createElement('div');
@@ -54,18 +54,13 @@ function createWeeklyTemperatureContainers(averages) {
         wrapper.appendChild(tempCard);
 
         // Falls Temperatur über 20 Grad, Feuerbild, sonst Eisbild
+        let img = createElement('img', 'img')
         if (ave.day > 20) {
-            let img = document.createElement('img');
-            img.classList.add('img');
             img.src = '/images/Feuer.PNG';
-            wrapper.appendChild(img);
         } else {
-            let img = document.createElement('img');
-            img.classList.add('img');
             img.src = '/images/Eis.PNG';
-            wrapper.appendChild(img);
         }
-
+        wrapper.appendChild(img);
         weatherCards.appendChild(wrapper);
     });
 }
@@ -73,51 +68,46 @@ function createWeeklyTemperatureContainers(averages) {
 async function createTodaysWeatherContainer(weather, cityName) {
     while (currentWeather.firstChild) {
         currentWeather.removeChild(currentWeather.firstChild);
-    } 
-    let title = document.createElement('div');
-    title.classList.add('title');
+    }
+    let title = createElement('div', 'title');
     title.innerText = cityName;
     currentWeather.appendChild(title);
 
-    let container = document.createElement('div');
-    container.classList.add('lowerContainer');
+    let container = createElement('div', 'lowerContainer')
 
-    let currentWeatherRight = document.createElement('div');
-    currentWeatherRight.classList.add('currentWeatherRight');
+    // rechtes div mit der momentanen Temperatur und dem Thermometer
+    let currentWeatherRight = createElement('div', 'currentWeatherRight');
 
-    let temp = document.createElement('div');
-    temp.classList.add('temp');
+    // div für die momentane Temperatur
+    let temp = createElement('div', 'temp');
     temp.innerText = weather.current.temperature_2m + "°C ";
     currentWeatherRight.appendChild(temp);
 
-    var thermometer = document.createElement('div');
-    thermometer.classList.add('thermometer');
-    var fill = document.createElement('div');
-    fill.classList.add('fill');
+    // Thermometer wird erstellt
+    var thermometer = createElement('div', 'thermometer');
+    var fill = createElement('div', 'fill');
     fill.style.height = '0';
     thermometer.appendChild(fill);
     currentWeatherRight.appendChild(thermometer);
 
-    let currentWeatherLeft = document.createElement('div');
-    currentWeatherLeft.classList.add('currentWeatherLeft');
+    // linkes div mit Regenwahrscheinlichkeit und Windgeschwindigkeit
+    let currentWeatherLeft = createElement('div', 'currentWeatherLeft');
 
-    let rainImg = document.createElement('img');
-    rainImg.classList.add('smallImg');
+    // div und Bild für Regenwahrscheinlichkeit
+    let rainImg = createElement('img', 'smallImg');
     rainImg.src = '/images/Regen.png';
     currentWeatherLeft.appendChild(rainImg);
 
-    let rain = document.createElement('div');
-    rain.classList.add('rain');
+    let rain = createElement('div', 'rain');
     rain.innerText = weather.current.precipitation_probability + "%";
     currentWeatherLeft.appendChild(rain);
 
-    let windImg = document.createElement('img');
-    windImg.classList.add('smallImg');
+    // div und Bild für Windgeschwindigkeit
+    let windImg = createElement('img', 'smallImg');
     windImg.src = '/images/Wind.png';
     currentWeatherLeft.appendChild(windImg);
 
-    let wind = document.createElement('div');
-    wind.classList.add('wind');
+    let wind = createElement('div', 'wind');
     wind.innerText = weather.current.wind_speed_10m + "km/h";
     currentWeatherLeft.appendChild(wind);
 
@@ -125,6 +115,7 @@ async function createTodaysWeatherContainer(weather, cityName) {
     container.appendChild(currentWeatherRight);
     currentWeather.appendChild(container);
 
+    // Animation Thermometer
     await fillThermometer(fill, weather.current.temperature_2m);
 
 }
@@ -134,10 +125,10 @@ function fillThermometer(fill, temperature) {
         var interval = setInterval(function () {
             var fillHeight;
             if (temperature < 0) {
-                // Calculate fill height for temperatures below 0°C
+                // berechnet die Füllhöhe für Temperaturen unter 0°C
                 fillHeight = (-temperature / 40) * (fill.parentElement.offsetHeight / 4);
             } else {
-                // Calculate fill height for temperatures above 0°C
+                // berechnet die Füllhöhe für Temperaturen über 0°C
                 fillHeight = (fill.parentElement.offsetHeight / 4) + ((temperature / 40) * (fill.parentElement.offsetHeight * 2 / 3));
             }
 
@@ -226,4 +217,11 @@ function createSnowflakes() {
             document.body.removeChild(snowflake);
         }, (Math.random() * 3 + 2) * 1000);
     }
+}
+
+
+function createElement(element, className) {
+    let div = document.createElement(element);
+    div.classList.add(className);
+    return div;
 }

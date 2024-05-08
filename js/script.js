@@ -54,7 +54,7 @@ function createWeeklyTemperatureContainers(averages) {
         wrapper.appendChild(tempCard);
 
         // Falls Temperatur über 20 Grad, Feuerbild, sonst Eisbild
-        let img = createElement('img', 'img')
+        let img = createElement('img', 'img');
         if (ave.day > 20) {
             img.src = '/images/Feuer.PNG';
         } else {

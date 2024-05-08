@@ -117,6 +117,7 @@ async function createTodaysWeatherContainer(weather, cityName) {
 
     // Animation Thermometer
     await fillThermometer(fill, weather.current.temperature_2m);
+    document.querySelector('.weatherDisplay').scrollIntoView({behavior: "smooth"});
 
 }
 

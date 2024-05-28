@@ -278,3 +278,18 @@ main {
         margin-right: 80px;
     }
 }
+
+@media(max-width: 465px) {
+
+    .leftRow {
+        margin-left: 10px;
+    }
+
+    .rightRow {
+        margin-right: 10px;
+    }
+
+    .weatherDisplay {
+        padding: 40px 10px;
+    }
+}
